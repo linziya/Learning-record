@@ -1,0 +1,73 @@
+<!--spring对bean管理的细节
+    1.创建bena的三种方式
+    2.bean对象的作用范围
+    2.bean对象的生命周期
+
+    -->
+
+    <!--bean对象创建的三种方式-->
+    <!--方式一：默认构造函数方式 在spring配置文件中使用bean标签，只有id与class属性时，采用方法默认构造器创建对象，如果不存在默认
+    方法时。则报错
+    -->
+    <!--配置文件-->
+    <bean id="UserService" class="com.lz.day01_springdemo.service.impl.UserServiceImpl">
+        <!--<constructor-arg ref="UserMapper"></constructor-arg>-->
+        <property name="userMapper" ref="UserMapper"></property>
+    </bean>
+    <bean id="UserMapper" class="com.lz.day01_springdemo.mapper.impl.UserMapperImpl">
+    </bean>
+
+    <!--方式二：使用普通工厂中的方法创建对象（即使用某个类创建对象。并存入容器）
+    <bean id="UserMapper" class="com.lz.day01_springdemo.mapper.impl.UserMapperImpl"></bean>
+    <bean id="xxx" factory-bean ="UserMapper" factory-method="xxxxx"></bean>
+    -->
+
+    <!--方式三：使用普通工厂中的方法创建对象（即使用某个类创建对象。并存入容器）-->
+
+    <!--spring的作用范围 使用scope属性调整
+    singleton 单列
+    prototype 多列
+    request  web应用的请求范围
+    session 会话范围
+    global-session 全局会话
+
+    -->
+
+    <!--生命周期
+        单例 ：容器创建时单例对象创建，只要容器不关闭，该对象一致存在。
+        多例：每次调用时容器自动创建，对象在使用就会一直存在。当没有对象引用时 会被gc回收
+    -->
+
+    <!--依赖注入DI 依赖关系的维护
+    loc 控制反转，作用
+        降低程序之间的耦合（依赖关系）
+        依赖关系管理：
+            当需要在当前类使用到其他类对象时。我需要我们new spring会为我们提供，需要在配置文件中告诉容器
+        可注入数据：
+            1基本类型与string
+            2其他bean类型
+            3复杂类型与几何类型
+        注入方式
+            1构造器注入
+                在bean内部使用 constructor-agr 标签
+                属性有：type 指定注入的数据类型 。多个类型相同时无法注入
+                        index 构造器中参数名的下标
+                        name 指定参数名
+                        value 注入的值
+                        ref 其他bean对象的id 这个id需要已存在容器中
+               优劣：  在容器创建时必须给每个参数都注入值。不注入则报错。如果有某些值不需要值这个方式不适用
+
+            2set注入
+                在bean内部使用property标签
+                属性： name 指定需要注入set方法的名称
+                       value 注入的值
+                       ref 其他bean对象的id 这个id需要已存在容器中
+                优劣：对象需要注入时才会注入。不用在初始化时注入， 但是如果某个方法一定需要值（如final），则不能使用这种方式。
+            3复杂、集合注入
+                用于list集合注入的方式的标签可以选
+                    list array set 都可以达到相同的效果
+                 用户map集合注入的标签可以
+                    map  props
+            3注解
+
+    -->
