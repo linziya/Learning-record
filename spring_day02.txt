@@ -1,0 +1,62 @@
+/**
+ * 注解
+ *
+ * 分类
+ * 用于创建对象 相当于bean标签
+ *      @Component  作用把当前类对象存入容器中
+ *      value属性 相当于id 不写时默认当前类。且首字母改为小写
+ *
+ *      Controller 控制器
+ *      Service 服务端
+ *      Repository 数据库
+ *
+ *  注入数据 与property属性作用一致
+ *      Autowired 按照类型自动注入 要求容器中存在一个bean对象与需要注入的类型匹配。如果存在多个对象时。那么通过变量名去匹配。
+ *      都不能匹配成功是报错
+ *      可以写在变量或方法上， 当使用这个注解时 set方法可以省略
+ *      Qualifier 在按照类型注入的基础上按照方法注入 给类成员注入时不能单独使用。只能与Autowired联用
+ *          value属性是用于指定注入bean的id
+ *       Resource  按照bean的id注入。可以独立使用
+ *           name 属性指定bean的id
+ *       Value 给基本类型与String类型注入值
+ *          value属性写值 也能使用spring的El表达式 ${}
+ *          *怎么区分表达式是spring mybatis 前端的（主要看书写的位置）
+ *
+ *       集合类型只能使用xml配置的方式
+ *
+ *  改变作用范围  与scope属性作用一致
+ *      scope 指定bean的取值范围
+ *          常用的value值有 singleton  prototype(多列)
+ *  生命周期  与init-method
+ */
+
+/**
+ * 与spring配置文件作用相同的类
+ *
+ * 注解
+ * Configuration 当前类为配置类  当配置类作为AnnotationConfigApplicationContext（xxx.class）
+ * 对象创建的参数时。可以不写 参数中填该类的字节码
+ *
+ * ComponentScan spring创建容器时需要扫描的包
+ *      value属性 指定容器扫描那个包 basePackages 与value二选一均可
+ *
+ * Bean 吧当前方法作为范围和存到ioc容器中
+ *  属性name 用于指定bean 的id  不写时，默认值是当前方法的名称 写时 name = “xxx”
+ *
+ *  当使用注解配置时。如果有方法参数，spring回去容器中查找可用的bean对象  查找方式与Autowired方式相容
+ *
+ * import  导入其他配置类
+ *  value属性 指定其他类的字节码 使用有import的类为父配置类。被引入的为子类
+ */
+
+/**
+ * spring整合junit 配置
+ *   导入坐标junit坐标 spring-test
+ *  使用Runwith注解 它会把原有的main替换spring提供的
+ *  使用ContextConfiguration告知spring运行器配置方式是注解还是xml
+ *      locations 指定xml文件的位置。  加classpath 表示在类路径下
+ *      classes 注解的位置
+ *
+ *      注意：使用spring5.x以上时。junit的jar必现要求在4.12以上
+ *
+ */
