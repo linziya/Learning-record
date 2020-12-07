@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--加载配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/><!-- 加载配置文件 -->
+
+    <!--配置QueryRunner-->
+    <bean id="runner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+
+    </bean>
+    <!--配置数据源-->
+    <bean id="dateSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <property name="driverClass" value="${jdbc.driverClassName}"></property>
+        <property name="jdbcUrl" value="${jdbc.url}"></property>
+        <property name="user" value="${jdbc.username}"></property>
+        <property name="password" value="${jdbc.password}"></property>
+    </bean>
+
+
+    <bean id = "accountMapper" class="day03_springdemo.mapper.impl.AccountMapperImpl">
+        <property name="runner" ref="runner"></property>
+
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+
+    <bean id = "accountService" class="day03_springdemo.service.impl.AccountServiceImpl">
+        <constructor-arg name="accountMapper" ref="accountMapper"></constructor-arg>
+        <!--注入事务管理器-->
+        <property name="transactionManager" ref="transactionManager"></property>
+    </bean>
+
+    <!--在工具类中注入连接数据源-->
+    <bean id = "connectionUtils" class="day03_springdemo.utils.ConnectionUtils">
+        <property name="dataSource" ref="dateSource"></property>
+    </bean>
+
+    <!--配置事务管理器-->
+    <bean id="transactionManager" class="day03_springdemo.utils.TransactionManager">
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+</beans>
