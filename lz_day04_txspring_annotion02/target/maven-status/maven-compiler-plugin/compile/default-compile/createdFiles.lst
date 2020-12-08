@@ -1,0 +1,5 @@
+com\lz\springAffairs\service\impl\UserServiceImpl.class
+com\lz\springAffairs\bean\User.class
+com\lz\springAffairs\mapper\UserMapper.class
+com\lz\springAffairs\service\UserSevice.class
+com\lz\springAffairs\mapper\impl\UserMapperImpl.class
