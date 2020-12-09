@@ -1,0 +1,44 @@
+springMVC
+
+mvc模型
+1. MVC全名是Model View Controller 模型视图控制器，每个部分各司其职。
+2. Model：数据模型，JavaBean的类，用来进行数据封装。
+3. View：指JSP、HTML用来展示数据给用户
+4. Controller：用来接收用户的请求，整个流程的控制器。用来进行数据校验等。
+
+入门
+1.导入坐标
+2xml配置前端控制器。配置初始化加载spring 可配置中文过滤器
+3sping配置文件配置开启注解扫描 mvc支持
+4控制层使用请求映射注解。可配置多层请求路径
+5编写解析前端文件。一般是xml jsp
+
+
+
+访问模型
+
+1浏览器发送请求到服务器 由前端控制器DispatchServlet分发请求
+
+2前端控制器吧请求连接交给处理器映射器 HandelrMapper 
+
+3映射器把匹配结果链交给控制器。控制器去找相应的处理器适配器
+
+4处理器适配器找到对应的handler 并把modelandview返回 平常也叫controller 
+
+5适配器把一个modelandview结果给控制器 ，控制器把这个结果转给viewResolver解析成view
+
+6 控制器拿到view渲染后填充到request域 最后给浏览器一个响应
+
+springmvc 与 struts2区别
+
+共同点都是基于三层架构模型。底层都依赖servlet 都是一个控制器
+
+不同点spring 入库是servlet struts2入口时filter。
+  spring是基于方法设计 struts2是基于类。每请求一次都会创建一个类 所以 spring速度快些，
+  springmvc 使用更加简洁 处理ajax更方便（）
+
+ 
+ 1前端与后端参数一致时。
+	2获取请求体内容
+	3获取请求消息头
+	4获取cookie值
